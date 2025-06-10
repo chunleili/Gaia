@@ -1,0 +1,11 @@
+{
+  "cmake.configureSettings": {
+    "CMAKE_TOOLCHAIN_FILE": "D:/Dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  },
+  "cmake.sourceDirectory": "${workspaceFolder}/Simulator/PBDDynamics",
+  "cmake.configureArgs": ["-DCMAKE_TOOLCHAIN_FILE=D:/Dev/vcpkg/scripts/buildsystems/vcpkg.cmake"],
+  "cmake.configureEnvironment": {
+    "VCPKG_ROOT": "D:/Dev/vcpkg",
+    "CMAKE_TOOLCHAIN_FILE": "D:/Dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
+  },
+}

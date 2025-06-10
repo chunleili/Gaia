@@ -31,4 +31,6 @@
 **/.vs
 *.npy
 
+build
 
+result
