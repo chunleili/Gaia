@@ -19,6 +19,8 @@
 
 #include <unordered_set>
 
+#include "HoudiniGeoIO.h"
+
 #define USE_VOLUMETRIC_COLLISION 0
 
 
@@ -177,6 +179,13 @@ bool GAIA::PBDPhysics::initializeGPU()
 		else if (fp.ext == ".vtk") {
 			std::cout << "Currently vtk file is not supported! " << std::endl;
 			//continue;
+		}
+		else if (fp.ext == ".geo") {
+			auto p = objectParamsList.objectParams[iMesh]->path.c_str();
+			HoudiniGeoIO geo(p);
+			auto indices1 = geo.getIndices(); // 获取顶点索引
+			auto positions1 = geo.getPositions(); // 获取顶点位置
+			loadSucceed = true;
 		}
 		else
 		{

@@ -12,3 +12,6 @@
 [submodule "Simulator/3rdParty/polyscope"]
 	path = Simulator/3rdParty/polyscope
 	url = https://github.com/nmwsharp/polyscope.git
+[submodule "Simulator/3rdParty/HoudiniGeoIO"]
+	path = Simulator/3rdParty/HoudiniGeoIO
+	url = https://github.com/chunleili/HoudiniGeoIO

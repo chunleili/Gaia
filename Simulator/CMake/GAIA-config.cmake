@@ -9,6 +9,7 @@ find_package(MeshFrame2 REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../3rdParty/Mes
 find_package(embree 3.0 REQUIRED)
 find_package(CuMatrix REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../3rdParty/CuMatrix/cmake)
 find_package(TBB REQUIRED)
+find_package(HoudiniGeoIO REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../3rdParty/HoudiniGeoIO/cmake)
 set (GAIA_ROOT ${CMAKE_CURRENT_LIST_DIR}/..)
 	
 add_subdirectory ("${CMAKE_CURRENT_LIST_DIR}/../3rdParty/cmake-git-version-tracking" ${CMAKE_CURRENT_BINARY_DIR}/cmake-git-version-tracking)
@@ -28,6 +29,9 @@ option (BUILD_GUI
 	   
 option (BUILD_Collision_Detector
        "Build Collision Detectors Modules." ON)
+
+option (Build_HoudiniGeoIO
+	   "Build HoudiniGeoIO modules." ON)
 	   
 set(GAIA_DEFINITIONS)
 
@@ -37,6 +41,7 @@ set(THIRD_PARTY_INCLUDE_DIRS
         ${EIGEN3_INCLUDE_DIR}
 		${MESHFRAME_INCLUDE_DIR}
 		${CU_MATRIX_INCLUDE_DIR}
+		${HoudiniGeoIO_INCLUDE_DIR}
         )
 		
 if (BUILD_GUI)
@@ -126,6 +131,15 @@ file(GLOB GAIA_COLORING_SRCS
 )
 
 list(REMOVE_ITEM GAIA_COLLISION_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_CURRENT_LIST_DIR}/../Modules/CollisionDetector/TetMeshContactDetector.h" "${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_CURRENT_LIST_DIR}/../Modules/CollisionDetector/TetMeshContactDetector.cpp")
+
+
+if(Build_HoudiniGeoIO)
+set (GAIA_SRCS
+	${GAIA_SRCS}
+	${HoudiniGeoIO_SRCS}
+	)
+endif(Build_HoudiniGeoIO)
+
 
 if (BUILD_VBD)
 message("GAIA: Build with VBD components!\n")

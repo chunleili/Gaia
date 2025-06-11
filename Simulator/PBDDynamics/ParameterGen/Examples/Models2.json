@@ -1,0 +1,41 @@
+{
+  "Models": [
+    {
+      "constantVelDamping": 0.0,
+      "density": 50.0,
+      "devCompliance": 9.999999747378752e-05,
+      "devDamping": 0.019999999552965164,
+      "exponentialVelDamping": 1.0,
+      "friction_dynamic": 0.11999999731779099,
+      "friction_static": 0.15000000596046448,
+      "hasNoGravZone": false,
+      "initialVelocity": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "materialName": "NeoHookean",
+      "maxVelocityMagnitude": -1.0,
+      "noGravZoneThreshold": 0.0,
+      "path": "D:/Dev/Gaia/Simulator/3rdParty/HoudiniGeoIO/two_balls_self_intersection.geo",
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "shuffleParallelizationGroup": true,
+      "translation": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "translationBeforeScaling": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "volCompliance": 0.0,
+      "volDamping": 0.0
+    }
+  ]
+}
