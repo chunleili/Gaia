@@ -181,11 +181,13 @@ bool GAIA::PBDPhysics::initializeGPU()
 			//continue;
 		}
 		else if (fp.ext == ".geo") {
-			auto p = objectParamsList.objectParams[iMesh]->path.c_str();
-			HoudiniGeoIO geo(p);
-			auto indices1 = geo.getIndices(); // 获取顶点索引
-			auto positions1 = geo.getPositions(); // 获取顶点位置
+			pTM_MF->load_geo(objectParamsList.objectParams[iMesh]->path.c_str());
 			loadSucceed = true;
+			// auto p = objectParamsList.objectParams[iMesh]->path.c_str();
+			// HoudiniGeoIO geo(p);
+			// auto indices1 = geo.getIndices(); // 获取顶点索引
+			// auto positions1 = geo.getPositions(); // 获取顶点位置
+			// loadSucceed = true;
 		}
 		else
 		{

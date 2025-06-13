@@ -1,1 +1,1 @@
-build\Release\PBDDynamics.exe D:\dev\Gaia\Simulator\PBDDynamics\ParameterGen\Examples\Models.json D:\dev\Gaia\Simulator\PBDDynamics\ParameterGen\Examples\Parameters.json D:\dev\Gaia\result -R .
+build\Release\PBDDynamics.exe D:\dev\Gaia\Simulator\PBDDynamics\ParameterGen\Examples\Models2.json D:\dev\Gaia\Simulator\PBDDynamics\ParameterGen\Examples\Parameters.json D:\dev\Gaia\result -R . >log.txt
