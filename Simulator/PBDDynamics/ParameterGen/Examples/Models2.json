@@ -17,16 +17,17 @@
       "materialName": "NeoHookean",
       "maxVelocityMagnitude": -1.0,
       "noGravZoneThreshold": 0.0,
-      "path": "D:/Dev/Gaia/Simulator/3rdParty/HoudiniGeoIO/two_balls_self_intersection.geo",
+      "path": "C:/Users/TaiyuanZhang/Desktop/muscle_simulation_project/shortest-path-based-collision/Gaia-chunlei/intersection_tests/torus_self_intersection_reverse.geo",
       "scale": [
         1.0,
         1.0,
         1.0
-      ],
+      ],  
       "shuffleParallelizationGroup": true,
+      "tetsColoringCategoriesPath": "C:/Users/TaiyuanZhang/Desktop/muscle_simulation_project/shortest-path-based-collision/Gaia-chunlei/intersection_tests/torus_self_intersection_reverse.geo.tetColoring.json",
       "translation": [
         0.0,
-        2.0,
+        0.0,
         0.0
       ],
       "translationBeforeScaling": [

@@ -11,7 +11,6 @@ using std::endl;
 GAIA::GraphColoring::GraphColor::GraphColor(const Graph& inGraph)
 {
     graph.resize(inGraph.numNodes);
-
     for (size_t i = 0; i < inGraph.edges.size(); i++)
     {
         const std::array<int, 2>& e = inGraph.edges[i];

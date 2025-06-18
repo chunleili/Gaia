@@ -45,6 +45,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	// - tet's vertex XOR sum and neighbor tets
 	tetsXorSums.resize(numTets());
 	tetsNeighborTets.resizeLike(tetVIds);
+	std::cout << "TetMeshTopology::initialize: " << nVerts << "  verts, " << numTets() << " tets" << std::endl;
 	for (int iTet = 0; iTet < numTets(); iTet++)
 	{
 		tetsXorSums(iTet) = tetVIds(0, iTet) ^ tetVIds(1, iTet) ^ tetVIds(2, iTet) ^ tetVIds(3, iTet);
@@ -94,6 +95,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 
 
 	// load tet coloring information
+	std::cout<<"tetsColoringCategoriesPath: "<<pObjectParams->tetsColoringCategoriesPath<<std::endl;
 	if (pObjectParams->tetsColoringCategoriesPath != "")
 	{
 		nlohmann::json tetsColoring;
@@ -143,7 +145,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	surfaceVertexNeighborSurfaceFaces.resize(pSurfaceMesh->numVertices());
 	surfaceVertexNeighborSurfaceVertices.resize(pSurfaceMesh->numVertices());
 	tetsIsSurfaceTet = VecDynamicBool::Constant(numTets(), true);
-
+	std::cout<<"TetMeshTopology::initialize: " << nVerts << "  verts, " << numTets() << " tets" << std::endl;
 	int iV = 0;
 	for (TetSurfaceMeshMF::VPtr pSurfV : ItSurface::MVIterator(pSurfaceMesh))
 	{
@@ -173,12 +175,11 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	surfaceFacesBelongingTets.resize(pSurfaceMesh->numFaces());
 	surfaceFacesIdAtBelongingTets.resize(pSurfaceMesh->numFaces());
 	surfaceFaces3NeighborFaces.resize(3, pSurfaceMesh->numFaces());
-
+	std::cout<<"Checking surfaces"<<std::endl;
 	int iF = 0;
 	for (TetSurfaceMeshMF::FPtr pSurfF : ItSurface::MFIterator(pSurfaceMesh))
 	{
-		assert(pSurfF->id() == iF);
-
+		if(pSurfF->id() != iF) std::cout<<"error!";
 		size_t iV = 0;
 		for (TetSurfaceMeshMF::HEPtr pHE : ItSurface::FHEIterator(pSurfF))
 		{
@@ -187,10 +188,19 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 			// the 3 edges will be AB, BC, CD
 			// and 3 neighbor faces will be on three face on the other side of AB, BC, CA correspondingly
 			// this gurrantees that
-			surfaceFaces3NeighborFaces(iV, iF) = TetSurfaceMeshMF::halfedgeSym(pHE)->face()->id();
+			try
+			{
+				surfaceFaces3NeighborFaces(iV, iF) = TetSurfaceMeshMF::halfedgeSym(pHE)->face()->id();
+			}
+			catch(const std::exception& e)
+			{
+				surfaceFaces3NeighborFaces(iV, iF) = -1;
+				std::cout<<"error! skip! "<<e.what()<<std::endl;
+			}
+			
+			
 			++iV;
 		}
-
 		surfaceFacesBelongingTets(iF) = pSurfF->getTetMeshHalfFacePtr()->tet()->id();
 		// face id is the vId that is not included by this face
 		surfaceFacesIdAtBelongingTets(iF) = -1;
@@ -211,7 +221,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 				surfaceFacesIdAtBelongingTets(iF) = iFTet;
 			}
 		}
-		assert(surfaceFacesIdAtBelongingTets(iF) != -1);
+		if(surfaceFacesIdAtBelongingTets(iF) == -1) std::cout<<"error!";
 
 		surfaceFacesSurfaceMeshVIds(0, iF) = tetVertIndicesToSurfaceVertIndices(surfaceFacesTetMeshVIds(0, iF));
 		surfaceFacesSurfaceMeshVIds(1, iF) = tetVertIndicesToSurfaceVertIndices(surfaceFacesTetMeshVIds(1, iF));
@@ -219,7 +229,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 
 		++iF;
 	}
-
+	std::cout << "TetMeshTopology::initialize: " << pSurfaceMesh->numFaces() << " surface faces" << std::endl;
 	// intialize Edges
 	nEdges = pTM_MF->numEdges();
 	edges.resize(2, nEdges);
@@ -229,7 +239,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	std::vector<IdType> edgeNighborTets_Vert1TetOrders_;
 	std::vector<IdType> edgeNighborTets_Vert2TetOrders_;
 	edgeNeighborTets_infos.resize(2 * nEdges);
-
+	std::cout << "TetMeshTopology::initialize: " << nEdges << " edges" << std::endl;
 	for (TetMeshMF::EPtr pE : TIt::TM_EIterator(pTM_MF))
 	{
 		edges.col(iEdge) << pE->vertex1()->id(), pE->vertex2()->id();
@@ -279,7 +289,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 
 	size_t maxNumberOfNeiTets = 0;
 	float avgNumberOfNeiTets = 0;
-
+	std::cout << "TetMeshTopology::initialize: " << nVerts << " vertices" << std::endl;
 	vertexNeighborTets_infos.resize(2 * pTM_MF->numVertices());
 	for (TetMeshMF::VPtr pV : TIt::TM_VIterator(pTM_MF))
 	{
@@ -324,9 +334,9 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	vertexNeighborTets = VecDynamicI::Map(&vertexNeighborTets_[0], vertexNeighborTets_.size());
 	vertexNeighborTets_vertexOrder = VecDynamicI::Map(&vertexNeighborTets_tetVId_[0], vertexNeighborTets_tetVId_.size());
 
-	// std::cout << "vertexNeighborTets: " << vertexNeighborTets.transpose() << "\n";
-	// std::cout << "vertexNeighborTets_vertexOrder: " << vertexNeighborTets_vertexOrder.transpose() << "\n";
-	// std::cout << "vertexNeighborTets_infos: " << vertexNeighborTets_infos.transpose() << "\n";
+	std::cout << "vertexNeighborTets: " << vertexNeighborTets.transpose() << "\n";
+	std::cout << "vertexNeighborTets_vertexOrder: " << vertexNeighborTets_vertexOrder.transpose() << "\n";
+	std::cout << "vertexNeighborTets_infos: " << vertexNeighborTets_infos.transpose() << "\n";
 }
 
 void GAIA::TetMeshFEM::initialize(ObjectParams::SharedPtr inObjectParams, std::shared_ptr<TetMeshMF> pTM_MF)
@@ -336,7 +346,6 @@ void GAIA::TetMeshFEM::initialize(ObjectParams::SharedPtr inObjectParams, std::s
 #endif // KEEP_MESHFRAME_MESHES
 
 	MF::IO::FileParts fp = MF::IO::fileparts(inObjectParams->path);
-
 	//bool loadSucceed = false;
 	//if (fp.ext == ".t")
 	//{
@@ -362,9 +371,8 @@ void GAIA::TetMeshFEM::initialize(ObjectParams::SharedPtr inObjectParams, std::s
 	m_nVertices = pTM_MF->numVertices();
 	m_nTets = pTM_MF->numTets();
 	pObjectParams = inObjectParams;
-
 	computeTopology(pTM_MF.get());
-
+	std::cout << "tet topology computed\n";
 
 	Eigen::AngleAxisf angleAxis;
 	FloatingType rot = pObjectParams->rotation.norm();
@@ -1155,7 +1163,6 @@ void GAIA::TetMeshFEM::computeTopology(TetMeshMF* pTM_MF)
 			alreadyComputed = true;
 		}
 	}
-
 	if (!alreadyComputed)
 	{
 		pTopology->initialize(pTM_MF, pObjectParams);

@@ -17,11 +17,10 @@ namespace GAIA {
 	namespace GraphColoring {
 
 		struct TetMeshTetGraph : Graph{
-			size_t numNodes;
-
 			void fromMesh(void* pMesh) {
 				TMeshStaticF::Ptr pTM = (TMeshStaticF::Ptr)pMesh;
 				numNodes = pTM->numTets();
+				std::cout << "TetGraph: " << numNodes << " nodes.\n";
 				edges.clear();
 				std::set<std::array<int, 2>> edgesSet;
 
@@ -67,6 +66,8 @@ namespace GAIA {
 						}
 					}
 				}
+				std::cout << "edgesSet: " << edgesSet.size() <<std::endl;
+				std::cout << "numNodes: " << numNodes <<std::endl;
 			};
 
 			void saveColFile(std::string outFile) {

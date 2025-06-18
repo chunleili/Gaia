@@ -183,11 +183,6 @@ bool GAIA::PBDPhysics::initializeGPU()
 		else if (fp.ext == ".geo") {
 			pTM_MF->load_geo(objectParamsList.objectParams[iMesh]->path.c_str());
 			loadSucceed = true;
-			// auto p = objectParamsList.objectParams[iMesh]->path.c_str();
-			// HoudiniGeoIO geo(p);
-			// auto indices1 = geo.getIndices(); // 获取顶点索引
-			// auto positions1 = geo.getPositions(); // 获取顶点位置
-			// loadSucceed = true;
 		}
 		else
 		{
@@ -216,8 +211,8 @@ bool GAIA::PBDPhysics::initializeGPU()
 				tMeshes[iMesh] = pTetMeshMassSpring;
 				pTetMeshMassSpring->initialize(objectParamsList.objectParams[iMesh], pTM_MF, this);
 				GPUTMeshes[iMesh] = pTetMeshMassSpring->getTetMeshGPU();
-			}
 				break;
+			}
 			default:
 				break;
 			}

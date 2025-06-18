@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required (VERSION 3.5...4.0)
 project (GraphColoring)
 
 if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
@@ -11,15 +11,17 @@ if( CMAKE_BINARY_DIR MATCHES " " )
 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
 
-
+find_package(HoudiniGeoIO REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../3rdParty/HoudiniGeoIO/cmake)
 # On Visual 2005 and above, this module can set the debug working directory
-cmake_policy(SET CMP0026 OLD)
+# cmake_policy(SET CMP0026 OLD)  # Removed as CMake 3.5+ requires NEW behavior
 
 cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 ## Use C++11
-set (CMAKE_CXX_STANDARD 11)
-set (CMAKE_CUDA_STANDARD 11)   
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CUDA_STANDARD 11)
+set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
 set(BUILD_EBD OFF)
 set(BUILD_PBD OFF)
@@ -32,18 +34,19 @@ include(../cmake/GAIA-config.cmake)
 
 include_directories(
 	${GAIA_INCLUDE_DIRS}
-	
+	${HoudiniGeoIO_INCLUDE_DIR}
 )
 
 file(GLOB SRC
-    "*.h"
-    "*.cpp"
+	"*.h"
+	"*.cpp"
 	"*.c"
 	)
 
 add_executable(GraphColoring 
 	${SRC}
 	${GAIA_COLORING_SRCS}
+	${HoudiniGeoIO_SRCS}
 )
 
 

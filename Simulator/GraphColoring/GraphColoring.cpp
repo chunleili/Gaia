@@ -59,6 +59,7 @@ struct GraphColoringParams {
 GraphColor::SharedPtr getColoringAlgoritm(const Graph& graph, const GraphColoringParams& params) {
 
 	GraphColor::SharedPtr pColoringAlg = nullptr;
+	std::cout << "Input graph: " << graph.numNodes << std::endl;
 
 	if (params.algorithm == "mcs")
 	{
@@ -74,7 +75,7 @@ GraphColor::SharedPtr getColoringAlgoritm(const Graph& graph, const GraphColorin
 		exit(1);
 
 	}
-
+	std::cout << "Using algorithm: " << params.algorithm << std::endl;
 	return pColoringAlg;
 }
 
@@ -88,6 +89,19 @@ std::shared_ptr<Graph> loadMesh(const std::string& inModelInputFile, const Graph
 	{
 		meshType = 0;
 		pTM->load_t(inModelInputFile.c_str());
+		std::cout << "Loaded tet mesh: " << inModelInputFile << std::endl;
+		std::cout << "Tet mesh info: " << pTM->numTets()
+			<< " tets, " << pTM->numVertices() << " vertices, "
+			<< pTM->numEdges() << " edges" << std::endl;
+	}
+	else if (fp.ext == ".geo")
+	{
+		meshType = 0;
+		pTM->load_geo(inModelInputFile.c_str());
+		std::cout << "Loaded tet mesh: " << inModelInputFile << std::endl;
+		std::cout << "Tet mesh info: " << pTM->numTets()
+			<< " tets, " << pTM->numVertices() << " vertices, "
+			<< pTM->numEdges() << " edges" << std::endl;
 	}
 	else if (fp.ext == ".obj")
 	{
@@ -167,18 +181,18 @@ int main(int argc, char** argv) {
 	TriMeshStaticF::SharedPtr pMesh = std::make_shared<TriMeshStaticF>();
 
 	std::shared_ptr<Graph> pGraph = loadMesh(inModelInputFile, config, pTM, pMesh);
-
 	GraphColor::SharedPtr pColoringAlg = getColoringAlgoritm(*pGraph, config);
 	
 	pColoringAlg->color();
-
+	std::cout << "Graph coloring finished." << std::endl;
+	std::cout << "Number of colors used: " << pColoringAlg->get_num_colors() << std::endl;
 	if (!pColoringAlg->is_valid()) {
 		std::cerr << "Graph coloring is invalid" << std::endl;
 		return -1;
 	}
 
 	pColoringAlg->convertToColoredCategories();
-
+	std::cout << "Number of colored categories: " << pColoringAlg->get_num_colors() << std::endl;
 	if (config.balanceGraphColoring)
 	{
 		pColoringAlg->balanceColoredCategories(config.goalMaxMinRatio);

@@ -34,6 +34,8 @@ struct InputHandler {
 					configs.repoRoot);
 				physics.getObjectParam(iObj).tetsColoringCategoriesPath = MF::STR::replace(physics.getObjectParam(iObj).tetsColoringCategoriesPath, "${REPO_ROOT}",
 					configs.repoRoot);
+				physics.getObjectParam(iObj).verticesColoringCategoriesPath = MF::STR::replace(physics.getObjectParam(iObj).verticesColoringCategoriesPath, "${REPO_ROOT}",
+					configs.repoRoot);
 				physics.getObjectParam(iObj).edgesColoringCategoriesPath = MF::STR::replace(physics.getObjectParam(iObj).edgesColoringCategoriesPath, "${REPO_ROOT}",
 					configs.repoRoot);
 

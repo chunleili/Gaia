@@ -3,14 +3,16 @@
     "allowCCD": true,
     "allowDCD": true,
     "checkFeasibleRegion": true,
+    "feasibleRegionEpsilon": 0.02,
+    "maxSearchDistanceMultiplier": 1.5,
     "checkTetTraverse": true,
     "handleSelfCollision": true,
     "stopTraversingAfterPassingQueryPoint": true,
     "tetrahedralTraverseForNonSelfIntersection": true
   },
   "PhysicsParams": {
-    "boundaryFrictionDynamic": 0.4000000059604645,
-    "boundaryFrictionStatic": 0.5,
+    "boundaryFrictionDynamic": 0.2,
+    "boundaryFrictionStatic": 0.22,
     "bowlCap": false,
     "bowlCenter": [
       0.0,
@@ -28,14 +30,14 @@
     "doStatistics": false,
     "gravity": [
       0.0,
-      -10.0,
+      0.0,
       0.0
     ],
     "iterations": 1,
     "maxInversionSolveMultiplier": 2.0,
     "maxSurfaceInversionSolveMultiplier": 3.0,
     "minParallizationBatchSize": 100,
-    "numFrames": 5000,
+    "numFrames": 500,
     "numSubsteps": 20,
     "numThreadsBoundarySolve": 128,
     "numThreadsMaterialSolve": 32,
@@ -61,14 +63,14 @@
     "usePlaneGround": true,
     "worldBounds": [
       [
-        -10.0,
+        -2.0,
         0.0,
-        -10.0
+        -2.0
       ],
       [
-        10.0,
-        20.0,
-        10.0
+        2.0,
+        200.0,
+        2.0
       ]
     ]
   }

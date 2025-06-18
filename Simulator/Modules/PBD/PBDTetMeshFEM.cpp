@@ -31,7 +31,7 @@ void GAIA::PBDTetMeshFEM::initialize(ObjectParams::SharedPtr inMaterialParams, T
 	TetMeshFEM::initialize(inMaterialParams, pTM_MF);
 
 	std::cout << "Added tetmesh: " << inMaterialParams->path << "\n"
-		<< "with " << numVertices() << " vertices and " << numTets() << "tets.\n";
+		<< "with " << numVertices() << " vertices and " << numTets() << " tets.\n";
 	pPBDPhysics = inPPBDPhysics;
 	dt = inPPBDPhysics->dt;
 }
