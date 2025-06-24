@@ -30,15 +30,15 @@
     "doStatistics": false,
     "gravity": [
       0.0,
-      0.0,
+      -10.0,
       0.0
     ],
-    "iterations": 1,
+    "iterations": 5,
     "maxInversionSolveMultiplier": 2.0,
     "maxSurfaceInversionSolveMultiplier": 3.0,
     "minParallizationBatchSize": 100,
     "numFrames": 500,
-    "numSubsteps": 20,
+    "numSubsteps": 50,
     "numThreadsBoundarySolve": 128,
     "numThreadsMaterialSolve": 32,
     "outputExt": "ply",
