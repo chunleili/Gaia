@@ -1,15 +1,29 @@
 cmake_minimum_required (VERSION 3.5...4.0)
+
+# set output of exe/lib/dll to bin folder
+SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+SET( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+SET( CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+SET( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_LIST_DIR}/../../bin")
+
+
 project (GraphColoring)
 
-if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
-    message( FATAL_ERROR "Please select another Build Directory ! (and give it a clever name, like bin_Visual2012_64bits/)" )
-endif()
-if( CMAKE_SOURCE_DIR MATCHES " " )
-	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
-endif()
-if( CMAKE_BINARY_DIR MATCHES " " )
-	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
-endif()
+# if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
+#     message( FATAL_ERROR "Please select another Build Directory ! (and give it a clever name, like bin_Visual2012_64bits/)" )
+# endif()
+# if( CMAKE_SOURCE_DIR MATCHES " " )
+# 	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
+# endif()
+# if( CMAKE_BINARY_DIR MATCHES " " )
+# 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
+# endif()
+
+
+find_package(Eigen3 REQUIRED )
+enable_language(CUDA)
 
 find_package(HoudiniGeoIO REQUIRED PATHS ${CMAKE_CURRENT_LIST_DIR}/../3rdParty/HoudiniGeoIO/cmake)
 # On Visual 2005 and above, this module can set the debug working directory

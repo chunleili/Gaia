@@ -131,3 +131,32 @@ Append GitHub to the list of authorized hosts:
    See the License for the specific language governing permissions and
    limitations under the License.
 
+
+
+## My
+Change the environment variables  "VCPKG_ROOT" in setenv.bat, and call 
+```
+setenv.bat
+```
+
+Then build coloring:
+```
+build_coloring.bat
+```
+
+Then build the simulator:
+```
+build.bat
+```
+
+Run the coloring:
+```
+run_coloring.bat
+```
+
+Run the simulator:
+```
+run_simulator.bat
+```
+
+Output binaries will be placed in the "bin" folder, with "_d" for debug build.

@@ -1,1 +1,3 @@
-C:\Users\TaiyuanZhang\Desktop\muscle_simulation_project\shortest-path-based-collision\Gaia-chunlei\build\Release\PBDDynamics.exe C:\Users\TaiyuanZhang\Desktop\muscle_simulation_project\shortest-path-based-collision\Gaia-chunlei\Simulator\PBDDynamics\ParameterGen\Examples\Models2.json C:\Users\TaiyuanZhang\Desktop\muscle_simulation_project\shortest-path-based-collision\Gaia-chunlei\Simulator\PBDDynamics\ParameterGen\Examples\Parameters.json C:\Users\TaiyuanZhang\Desktop\muscle_simulation_project\shortest-path-based-collision\Gaia-chunlei\result-new\torus -R . 
+@echo off
+set ROOTDIR=%cd%
+bin\PBDDynamics.exe %ROOTDIR%\Simulator\PBDDynamics\ParameterGen\Examples\Models2.json %ROOTDIR%\Simulator\PBDDynamics\ParameterGen\Examples\Parameters.json %ROOTDIR%\result -R %ROOTDIR%
