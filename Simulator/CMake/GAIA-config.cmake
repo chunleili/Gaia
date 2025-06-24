@@ -27,7 +27,7 @@ add_subdirectory ("${CMAKE_CURRENT_LIST_DIR}/../3rdParty/cmake-git-version-track
 
 
 option (BUILD_VBD
-       "Build VBD modules." ON)
+       "Build VBD modules." OFF)
 	   
 option (BUILD_VBD_Cloth
        "Build VBD Cloth modules." OFF)

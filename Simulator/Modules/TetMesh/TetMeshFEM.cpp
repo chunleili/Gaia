@@ -145,7 +145,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	surfaceVertexNeighborSurfaceFaces.resize(pSurfaceMesh->numVertices());
 	surfaceVertexNeighborSurfaceVertices.resize(pSurfaceMesh->numVertices());
 	tetsIsSurfaceTet = VecDynamicBool::Constant(numTets(), true);
-	std::cout<<"TetMeshTopology::initialize: " << nVerts << "  verts, " << numTets() << " tets" << std::endl;
+	std::cout<<"TetMeshTopology::initialize: " << nVerts << " verts, " << numTets() << " tets" << std::endl;
 	int iV = 0;
 	for (TetSurfaceMeshMF::VPtr pSurfV : ItSurface::MVIterator(pSurfaceMesh))
 	{
@@ -188,17 +188,7 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 			// the 3 edges will be AB, BC, CD
 			// and 3 neighbor faces will be on three face on the other side of AB, BC, CA correspondingly
 			// this gurrantees that
-			try
-			{
-				surfaceFaces3NeighborFaces(iV, iF) = TetSurfaceMeshMF::halfedgeSym(pHE)->face()->id();
-			}
-			catch(const std::exception& e)
-			{
-				surfaceFaces3NeighborFaces(iV, iF) = -1;
-				std::cout<<"error! skip! "<<e.what()<<std::endl;
-			}
-			
-			
+			surfaceFaces3NeighborFaces(iV, iF) = TetSurfaceMeshMF::halfedgeFace(pHE)->id();
 			++iV;
 		}
 		surfaceFacesBelongingTets(iF) = pSurfF->getTetMeshHalfFacePtr()->tet()->id();
@@ -334,9 +324,9 @@ void GAIA::TetMeshTopology::initialize(TetMeshMF * pTM_MF, ObjectParams::SharedP
 	vertexNeighborTets = VecDynamicI::Map(&vertexNeighborTets_[0], vertexNeighborTets_.size());
 	vertexNeighborTets_vertexOrder = VecDynamicI::Map(&vertexNeighborTets_tetVId_[0], vertexNeighborTets_tetVId_.size());
 
-	std::cout << "vertexNeighborTets: " << vertexNeighborTets.transpose() << "\n";
-	std::cout << "vertexNeighborTets_vertexOrder: " << vertexNeighborTets_vertexOrder.transpose() << "\n";
-	std::cout << "vertexNeighborTets_infos: " << vertexNeighborTets_infos.transpose() << "\n";
+	// std::cout << "vertexNeighborTets: " << vertexNeighborTets.transpose() << "\n";
+	// std::cout << "vertexNeighborTets_vertexOrder: " << vertexNeighborTets_vertexOrder.transpose() << "\n";
+	// std::cout << "vertexNeighborTets_infos: " << vertexNeighborTets_infos.transpose() << "\n";
 }
 
 void GAIA::TetMeshFEM::initialize(ObjectParams::SharedPtr inObjectParams, std::shared_ptr<TetMeshMF> pTM_MF)

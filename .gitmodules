@@ -7,7 +7,7 @@
 
 [submodule "Simulator/3rdParty/MeshFrame2"]
 	path = Simulator/3rdParty/MeshFrame2
-	url = https://github.com/AnkaChan/MeshFrame2.git
+	url = https://github.com/chunleili/MeshFrame2.git
 
 [submodule "Simulator/3rdParty/polyscope"]
 	path = Simulator/3rdParty/polyscope
